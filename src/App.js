@@ -10,6 +10,14 @@ export default function App() {
   return (
     <div>
       <Steps />
+      <StepMessage step={1}>
+        <p>Pass in content</p>
+        <p>🤖</p>
+      </StepMessage>
+      <StepMessage step={2}>
+        <p>Read chidlren prop</p>
+        <p>👍</p>
+      </StepMessage>
       {/* <Steps /> */}
     </div>
   );
@@ -54,7 +62,18 @@ function Steps() {
             <div className={`${step >= 3 ? "active" : ""}`}>3</div>
           </div>
 
-          <StepMessage step={step}></StepMessage>
+          <StepMessage step={step}>
+            {messages[step - 1]}
+            <div className="buttons">
+              <button
+                bgColor="#e7e7e7"
+                textColor="#333"
+                onClick={() => alert(`Learn how to ${messages[step - 1]}`)}
+              >
+                Learn how
+              </button>
+            </div>
+          </StepMessage>
 
           <div className="buttons">
             <Button bgColor="#7950f2" textColor="#fff" onClick={handlePrevious}>
@@ -72,12 +91,10 @@ function Steps() {
 
 function StepMessage({ step, children }) {
   return (
-    <p className="message">
-      <h3>
-        Step {step}: {messages[step - 1]}
-      </h3>
+    <div className="message">
+      <h3>Step {step}</h3>
       {children}
-    </p>
+    </div>
   );
 }
 // Resuable Button, make use of the children prop to pass on data inside open and close Button tags.
